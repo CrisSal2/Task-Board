@@ -5,10 +5,22 @@ let nextId = JSON.parse(localStorage.getItem("nextId"));
 // Todo: create a function to generate a unique task id
 function generateTaskId() {
 
+    var idstr = String.fromCharCode(Math.floor((Math.random() * 25) + 65));
+  do {
+    var ascicode = Math.floor((Math.random() * 42) + 48);
+    if (ascicode < 58 || ascicode > 64) {
+      idstr += String.fromCharCode(ascicode);
+    }
+  } while (idstr.length < 32);
+
+  return (idstr);
 }
+
 
 // Todo: create a function to create a task card
 function createTaskCard(task) {
+    const taskCard = document.createElement("div");
+    taskCard.classList.add("card");
 
 }
 
