@@ -24,6 +24,14 @@ console.log(generateTaskId());
 function createTaskCard(task) {
     const taskCard = document.createElement("div");
     taskCard.classList.add("card");
+    taskCard.textContent = card(
+
+      title = title.value,
+      date = date.value,
+      description = description.value,
+
+    );
+
 
 }
 
