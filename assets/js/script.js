@@ -3,6 +3,7 @@ let taskList = JSON.parse(localStorage.getItem("tasks"));
 let nextId = JSON.parse(localStorage.getItem("nextId"));
 const modal = document.querySelector('.modal');
 const backdrop = document.querySelector('.backdrop');
+const addBtn = document.querySelector('.btn')
 
 // Todo: create a function to generate a unique task id
 function generateTaskId() {
@@ -24,7 +25,7 @@ console.log(generateTaskId());
 function createTaskCard(task) {
     const taskCard = document.createElement("div");
     taskCard.classList.add("card");
-    taskCard.textContent = card(
+    taskList.push(
 
       title = title.value,
       date = date.value,
@@ -50,6 +51,8 @@ function handleAddTask(event){
 
 
 }
+
+addBtn.addEventListener('click', handleAddTask);
 
 // Todo: create a function to handle deleting a task
 function handleDeleteTask(event){
