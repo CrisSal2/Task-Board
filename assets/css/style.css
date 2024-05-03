@@ -14,3 +14,9 @@ body {
 .task-card:hover {
   cursor: grab;
 }
+
+/* ***************************Cards************************** */
+
+.card {
+  border: solid;
+}
