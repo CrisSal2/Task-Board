@@ -3,7 +3,9 @@ let taskList = JSON.parse(localStorage.getItem("tasks"));
 let nextId = JSON.parse(localStorage.getItem("nextId"));
 const modal = document.querySelector('.modal');
 const backdrop = document.querySelector('.backdrop');
-const addBtn = document.querySelector('.btn')
+const addBtn = document.querySelector('.btn');
+const submit = document.querySelector('#submit');
+
 
 // Todo: create a function to generate a unique task id
 function generateTaskId() {
@@ -25,14 +27,6 @@ console.log(generateTaskId());
 function createTaskCard(task) {
     const taskCard = document.createElement("div");
     taskCard.classList.add("card");
-    taskList.push(
-
-      title = title.value,
-      date = date.value,
-      description = description.value,
-
-    );
-
 
 }
 
@@ -42,17 +36,39 @@ function renderTaskList() {
 }
 
 // Todo: create a function to handle adding a new task
+function openModal(event) {
+  event.preventDefault();
+
+  backdrop.style.display = 'block';
+  modal.style.display = 'block';
+
+}
+addBtn.addEventListener('click', openModal);
+
+
 function handleAddTask(event){
     event.preventDefault();
 
-    backdrop.style.display = 'block';
-    modal.style.display = 'block';
+    const tasks = JSON.parse(localStorage.getItem('tasks')) || [];
+    const titleInput = document.querySelector('#title-input');
+    const dateInput = document.querySelector('#date-input');
+    const taskInput = document.querySelector('#task-textarea-input');
 
+    tasks.push({
 
+      title: titleInput.value,
+      date: dateInput.value,
+      task: taskInput.value,
 
+    });
+
+    backdrop.style.display = 'none';
+    modal.style.display = 'none';
+
+    localStorage.setItem('tasks', JSON.stringify(tasks));
 }
 
-addBtn.addEventListener('click', handleAddTask);
+submit.addEventListener('click', handleAddTask);
 
 // Todo: create a function to handle deleting a task
 function handleDeleteTask(event){

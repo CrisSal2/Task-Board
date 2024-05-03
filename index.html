@@ -28,15 +28,18 @@
 
     <div class = "backdrop"></div>
     <div class = "modal">
-      <h1 id = "add-task">Add Task</h1>
+      <div>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        <h1 id = "add-task">Add Task</h1>
+      </div>
       <form id="form">
         <label for="title">Task Title</label>
         <input type="text" name = "title" id = "title-input"/>
         <label for="date">Task Due Date</label>
         <input type="text" name = "date" id = "date-input"/>
-        <label for="description">Task Description</label>
-        <input type="text" name = "description" id = "description-input"/>
-        <button id = "submit">Add Task</button>
+        <label for="task-textarea-input" class="form-label">Task Description</label>
+        <textarea class="form-control" id="task-textarea-input" rows="3"></textarea>
+        <button type = "submit" id = "submit">Add Task</button>
       </form>
     </div>
 
