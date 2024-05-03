@@ -50,9 +50,9 @@ function handleAddTask(event){
     event.preventDefault();
 
     const tasks = JSON.parse(localStorage.getItem('tasks')) || [];
-    const titleInput = document.querySelector('#title-input');
-    const dateInput = document.querySelector('#date-input');
-    const taskInput = document.querySelector('#task-textarea-input');
+    const titleInput = document.querySelector('#title-of-task');
+    const dateInput = document.querySelector('#date-text');
+    const taskInput = document.querySelector('#task-text');
 
     tasks.push({
 
