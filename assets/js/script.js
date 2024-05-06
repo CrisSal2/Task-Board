@@ -3,6 +3,12 @@ let taskList = JSON.parse(localStorage.getItem("tasks"));
 let nextId = JSON.parse(localStorage.getItem("nextId"));
 const submit = document.querySelector('.btn-primary');
 
+const titleInput = $('#title-of-task');
+const dateInput = $('#datepicker');
+const taskInput = $('#task-text');
+const taskForm = $('#task-form');
+const addTask = $('#addTask');
+
 
 // Todo: create a function to generate a unique task id
 function generateTaskId() {
@@ -22,7 +28,7 @@ console.log(generateTaskId());
 
 // Todo: create a function to create a task card
 
-function createTaskCard(task) {
+/* function createTaskCard(task) {
   const mainEl = document.querySelector("#todo-cards");
   const task = document.createElement("div");
   const title = document.createElement("h1");
@@ -38,51 +44,8 @@ function createTaskCard(task) {
 
   task.setAttribute('class', 'card');
 
-}
-
-
-
-/* {
-const tasks = JSON.parse(localStorage.getItem("tasks"));
-
-const mainEl = document.querySelector("#todo-cards");
-
-for (let i = 0; i < tasks.length; i++) {
-    let task = tasks[i];
-
-    const divEl = document.createElement("div");
-    const pEl = document.createElement("p");
-    const h2El = document.createElement("h2");
-    const h3El = document.createElement("h3");
-
-    h3El.textContent = task.date;
-    h2El.textContent = task.title;
-    pEl.textContent = task.content;
-
-    mainEl.append(divEl);
-    divEl.append(h2El, h3El, pEl);
-
-    divEl.setAttribute('class', 'card');
-
-}
 } */
-/* function createTaskCard(task) {
-    const taskCard = document.createElement("div");
-    taskCard.classList.add("card");
 
-}
-
-$( function() {
-  $( "#sortable" ).sortable({
-    revert: true
-  });
-  $( "#draggable" ).draggable({
-    connectToSortable: "#sortable",
-    helper: "clone",
-    revert: "invalid"
-  });
-  $( "ul, li" ).disableSelection();
-} ); */
 
 // Todo: create a function to render the task list and make cards draggable
 function renderTaskList() {
@@ -90,27 +53,48 @@ function renderTaskList() {
 }
 
 // Todo: create a function to handle adding a new task
-function handleAddTask(event){
-    event.preventDefault();
+addTask.on('click', handleAddTask);
 
-    const tasks = JSON.parse(localStorage.getItem('tasks')) || [];
-    const titleInput = document.querySelector('#title-of-task');
-    const dateInput = document.querySelector('#datepicker');
-    const taskInput = document.querySelector('#task-text');
+function handleAddTask(event) {
+  event.preventDefault();
 
-    tasks.push({
+  const taskTitle = titleInput.val().trim();
+  const taskDate = dateInput.val();
+  const taskText = taskInput.val().trim();
 
-      title: titleInput.value,
-      date: dateInput.value,
-      task: taskInput.value,
+  let newTask = {
+    id: generateTaskId(),
+    title: taskTitle,
+    text: taskText,
+    dueDate: taskDate,
+  };
 
-    });
+  function pullTasks() {
+    let taskList = JSON.parse(localStorage.getItem('tasks'));
+  
+      if (!taskList) {
+          taskList = [];
+      }
+      return taskList;
+  }
+
+  const taskList = pullTasks();
+  taskList.push(newTask);
+
+  function pushTasks(tasks) {
     localStorage.setItem('tasks', JSON.stringify(tasks));
+  }
 
-    createTaskCard();
+  pushTasks(taskList);
+  
+  renderTaskList();
+
+  titleInput.val('');
+  dateInput.val('');
+  taskInput.val('');
+
+  taskForm.closest('.modal').modal('hide');
 }
-
-submit.addEventListener('click', handleAddTask);
 
 // Todo: create a function to handle deleting a task
 function handleDeleteTask(event){
