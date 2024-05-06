@@ -109,21 +109,8 @@ function handleAddTask(event) {
     dueDate: taskDate,
   };
 
-  function pullTasks() {
-    let taskList = JSON.parse(localStorage.getItem('tasks'));
-  
-      if (!taskList) {
-          taskList = [];
-      }
-      return taskList;
-  }
-
   const taskList = pullTasks();
   taskList.push(newTask);
-
-  function pushTasks(tasks) {
-    localStorage.setItem('tasks', JSON.stringify(tasks));
-  }
 
   pushTasks(taskList);
   
@@ -133,7 +120,19 @@ function handleAddTask(event) {
   dateInput.val('');
   taskInput.val('');
 
-  taskForm.closest('.modal').modal('hide');
+}
+
+function pullTasks() {
+  let taskList = JSON.parse(localStorage.getItem('tasks'));
+
+    if (!taskList) {
+        taskList = [];
+    }
+    return taskList;
+}
+
+function pushTasks(tasks) {
+  localStorage.setItem('tasks', JSON.stringify(tasks));
 }
 
 // Todo: create a function to handle deleting a task
@@ -147,7 +146,20 @@ function handleDeleteTask() {
 
 // Todo: create a function to handle dropping a task into a new status lane
 function handleDrop(event, ui) {
+  event.preventDefault();
 
+  const taskList = pullTasks();
+  const taskId = ui.helper.attr('data-task-id');
+  const newStatus = event.target.id;
+
+  for (let task of taskList) {
+    if (task.id == taskId) {
+        task.status = newStatus;
+    }
+  }
+
+  pushTasks(taskList);
+  renderTaskList();
 }
 
 // Todo: when the page loads, render the task list, add event listeners, make lanes droppable, and make the due date field a date picker
