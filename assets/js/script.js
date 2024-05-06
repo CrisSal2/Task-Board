@@ -2,7 +2,7 @@
 let taskList = JSON.parse(localStorage.getItem("tasks"));
 let nextId = JSON.parse(localStorage.getItem("nextId"));
 
-const submit = document.querySelector('.btn-primary');
+const submit = $('.btn-primary');
 const titleInput = $('#title-of-task');
 const dateInput = $('#datepicker');
 const taskInput = $('#task-text');
