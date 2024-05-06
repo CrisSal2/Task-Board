@@ -1,6 +1,6 @@
 // Retrieve tasks and nextId from localStorage
-let taskList = JSON.parse(localStorage.getItem("tasks")) || [];
-let nextId = JSON.parse(localStorage.getItem("nextId")) || 1;
+let taskList = JSON.parse(localStorage.getItem("tasks"));
+let nextId = JSON.parse(localStorage.getItem("nextId"));
 
 const submit = document.querySelector('.btn-primary');
 const titleInput = $('#title-of-task');
@@ -103,10 +103,13 @@ function handleAddTask(event) {
   const taskText = taskInput.val().trim();
 
   let newTask = {
+
     id: generateTaskId(),
     title: taskTitle,
     text: taskText,
     dueDate: taskDate,
+    status: 'to-do',
+
   };
 
   const taskList = pullTasks();
@@ -165,4 +168,17 @@ function handleDrop(event, ui) {
 // Todo: when the page loads, render the task list, add event listeners, make lanes droppable, and make the due date field a date picker
 $(document).ready(function () {
 
-})
+  renderTaskList();
+
+
+  $('#taskDueDate').datepicker({
+    changeMonth: true,
+    changeYear: true,
+  });
+
+  $('.lane').droppable({
+    accept: '.draggable',
+    drop: handleDrop,
+  });
+
+});
